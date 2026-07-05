@@ -1,19 +1,21 @@
 import streamlit as st
-from recommender import recommend
+from recommender import recommend,movies
 
 st.title("🎬 Movie Recommender")
+st.write("Get movie recommendations based on genres")
 
-movie = st.text_input("Enter Movie Name")
+movie_name = st.selectbox("Select Movie",movies["title"].values)
 
 if st.button("Recommend"):
 
     try:
-        results = recommend(movie)
+        results = recommend(movie_name)
 
         st.write("Recommended Movies:")
 
-        for r in results:
-            st.write(r)
+        for movie in results:
+            st.write(movie)
+            st.write("---")
 
-    except:
-        st.write("Movie not found")
+    except Exception as e:
+        st.write(e)
